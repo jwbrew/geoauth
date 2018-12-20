@@ -20,7 +20,6 @@ class App extends Component {
   }
 
   checkGeoFence() {
-    console.log("checkGeoFence");
     fetch(
       `/.netlify/functions/geoauth?latitude=${this.state.latitude}&longitude=${
         this.state.longitude
@@ -28,7 +27,6 @@ class App extends Component {
     )
       .then(x => x.json())
       .then(x => {
-        console.log(x);
         this.setState({ isGeofenced: x.permitted });
       });
   }
@@ -42,7 +40,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
+    console.log("componentDidMount");
     const options = {
       enableHighAccuracy: true,
       maximumAge: 30000,
@@ -59,8 +57,6 @@ class App extends Component {
       this.handleGeoError,
       options
     );
-
-    console.log({ watch });
   }
 
   handleGeoError(error) {
@@ -68,14 +64,13 @@ class App extends Component {
   }
 
   updatePosition(position) {
-    console.log("updatePosition");
     this.setState(state => {
       const newState = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude
       };
 
-      if (newState !== state) {
+      if (newState !== state && newState.latitude && newState.longitude) {
         this.checkGeoFence();
       }
 
