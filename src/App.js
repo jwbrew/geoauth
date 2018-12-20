@@ -19,10 +19,10 @@ class App extends Component {
     this.updatePosition = this.updatePosition.bind(this);
   }
 
-  checkGeoFence() {
+  checkGeoFence(state) {
     fetch(
-      `/.netlify/functions/geoauth?latitude=${this.state.latitude}&longitude=${
-        this.state.longitude
+      `/.netlify/functions/geoauth?latitude=${state.latitude}&longitude=${
+        state.longitude
       }`
     )
       .then(x => x.json())
@@ -71,7 +71,7 @@ class App extends Component {
       };
 
       if (newState !== state && newState.latitude && newState.longitude) {
-        this.checkGeoFence();
+        this.checkGeoFence(newState);
       }
 
       return newState;
