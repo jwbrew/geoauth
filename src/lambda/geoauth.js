@@ -7,7 +7,7 @@ export async function handler(event, context) {
   const { latitude, longitude } = event.queryStringParameters;
   try {
     const response = await fetch(
-      `https://api.postcodes.io/postcodes?lon=${longitude}&lat=${latitude}`
+      `https://api.postcodes.io/postcodes?lon=${longitude}&lat=${latitude}&radius=70`
     );
     if (!response.ok) {
       // NOT res.status >= 200 && res.status < 300
